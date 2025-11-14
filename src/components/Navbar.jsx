@@ -5,7 +5,7 @@ import colors from '@/config/colors'
 
 const NAV_LINKS = [
   { label: 'Home', path: '/' },
-  { label: 'Calendario Partite', path: '/calendario' },
+  { label: 'Calendario Partite', labelMobile: 'Calendario\nPartite', path: '/calendario' },
   { label: 'Il Nostro Team', path: '/team' },
   { label: 'Media', path: '/media' },
   { label: 'Contatti', path: '/contatti' },
@@ -24,6 +24,7 @@ function Navbar() {
     () =>
       NAV_LINKS.map((item, index) => ({
         label: item.label,
+        labelMobile: item.labelMobile,
         link: item.path === '/' ? '#/' : `#${item.path}`,
         ariaLabel: `${item.label} page`,
         binaryNumber: (index + 1).toString(2).padStart(3, '0'),

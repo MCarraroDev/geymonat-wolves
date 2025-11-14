@@ -350,11 +350,11 @@ export const StaggeredMenu = ({
         </div>
 
         <header
-          className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-end p-[2em] bg-transparent pointer-events-none z-20"
+          className="staggered-menu-header absolute top-0 left-0 w-full flex items-center justify-end p-8 bg-transparent pointer-events-none z-[5]"
           aria-label="Main navigation header">
           <button
             ref={toggleBtnRef}
-            className="sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium leading-none overflow-visible pointer-events-auto"
+            className="sm-toggle relative inline-flex items-center gap-[0.3rem] bg-transparent border-0 cursor-pointer font-medium text-xl leading-none overflow-visible pointer-events-auto"
             aria-label={open ? 'Chiudi menu' : 'Apri menu'}
             aria-expanded={open}
             aria-controls="staggered-menu-panel"
@@ -392,7 +392,7 @@ export const StaggeredMenu = ({
         <aside
           id="staggered-menu-panel"
           ref={panelRef}
-          className="staggered-menu-panel absolute top-0 right-0 h-full bg-white flex flex-col p-[6em_2em_2em_2em] overflow-y-auto z-10 backdrop-blur-[12px]"
+          className="staggered-menu-panel absolute top-0 right-0 h-full bg-white flex flex-col pt-20 px-8 pb-8 overflow-y-auto z-20 backdrop-blur-[12px]"
           style={{ WebkitBackdropFilter: 'blur(12px)' }}
           aria-hidden={!open}>
           <div className="sm-panel-inner flex-1 flex flex-col gap-5">
@@ -413,9 +413,10 @@ export const StaggeredMenu = ({
                       onClick={handleLinkClick}>
                       <span
                         className="sm-panel-itemLabel inline-block [transform-origin:50%_100%] will-change-transform">
-                        {it.label}
+                        <span className="hidden sm:inline">{it.label}</span>
+                        <span className="inline sm:hidden whitespace-pre-line">{it.labelMobile || it.label}</span>
                         {it.binaryNumber && (
-                          <span className="text-[#6a3781] text-[0.95rem] ml-2 font-normal inline-block relative top-[-1.5em]">
+                          <span className="text-[#6a3781] text-[0.95rem] ml-2 font-normal inline-block relative top-[-1.5em] tracking-wider">
                             [{it.binaryNumber}]
                           </span>
                         )}
@@ -443,7 +444,7 @@ export const StaggeredMenu = ({
                 className="sm-socials mt-auto pt-8 flex flex-col gap-3"
                 aria-label="Social links">
                 <h3
-                  className="sm-socials-title m-0 text-base font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
+                  className="sm-socials-title m-0 text-xl font-medium [color:var(--sm-accent,#ff0000)]">Socials</h3>
                 <ul
                   className="sm-socials-list list-none m-0 p-0 flex flex-row items-center gap-4 flex-wrap"
                   role="list">

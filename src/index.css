@@ -10,6 +10,20 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Agency FB';
+  src: url('./font/bureauagencyfb.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Agency FB';
+  src: url('./font/bureauagencyfbbold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
 html, body, #root {
   margin: 0;
   padding: 0;
@@ -20,6 +34,7 @@ html, body, #root {
 body {
   overflow-x: hidden;
   background-color: #1c1f3b;
+  font-family: 'Agency FB', 'Arial Narrow', Arial, sans-serif;
 }
 
 button {

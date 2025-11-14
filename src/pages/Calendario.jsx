@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import MatchCard from '@/components/MatchCard'
 import colors from '@/config/colors'
 import geymonatLogo from '@/assets/logo/verticale.webp'
@@ -6,6 +7,10 @@ import donMilaniLogo from '@/assets/logo/teams/donmilani/Logo varese school cup 
 function Calendario() {
   // Data della partita: 17 novembre 2025 alle 8:00
   const matchDate = new Date(2025, 10, 17, 8, 0, 0) // Mese 10 = novembre (0-indexed)
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   return (
     <div 

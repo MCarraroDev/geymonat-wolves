@@ -3,11 +3,13 @@ import Home from './Home'
 import Calendario from './pages/Calendario'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ScrollToTop from './components/ScrollToTop'
 import './App.css'
 
 function App() {
   return (
     <HashRouter>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col" style={{ backgroundColor: '#1c1f3b' }}>
         <Navbar />
         <main className="flex-1">

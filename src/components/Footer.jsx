@@ -34,13 +34,13 @@ function Footer() {
 
           {/* Quick Links Column */}
           <div className="flex flex-col items-center">
-            <h3 className="text-black font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="text-black font-bold text-xl mb-4">Quick Links</h3>
             <ul className="space-y-2 text-center">
               {quickLinks.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-black/80 hover:text-black transition-colors text-sm"
+                    className="text-black/80 hover:text-black transition-colors text-base"
                   >
                     {link.label}
                   </Link>
@@ -51,10 +51,10 @@ function Footer() {
 
           {/* Contatti Column */}
           <div className="flex flex-col items-center">
-            <h3 className="text-black font-bold text-lg mb-4">Contatti</h3>
+            <h3 className="text-black font-bold text-xl mb-4">Contatti</h3>
             <ul className="space-y-2 text-center">
               {contacts.map((contact, index) => (
-                <li key={index} className="text-black/80 text-sm">
+                <li key={index} className="text-black/80 text-base">
                   <span className="font-semibold">{contact.label}:</span>{' '}
                   {contact.type === 'email' ? (
                     <a 
@@ -81,7 +81,7 @@ function Footer() {
 
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-black/20 text-center">
-          <p className="text-black/60 text-sm">
+          <p className="text-black/60 text-base">
             © {new Date().getFullYear()} Marco Carraro. Tutti i diritti riservati.
           </p>
         </div>
