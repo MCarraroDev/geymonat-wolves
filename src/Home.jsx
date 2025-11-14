@@ -1,23 +1,13 @@
 import logo from '@/assets/logo/orizzontale.webp'
 import colors from '@/config/colors'
+import RotatingText from '@/components/RotatingText'
 
 function Home() {
   return (
     <div 
-      className="w-full flex flex-col items-center gap-16 px-4 py-20 relative"
+      className="w-full flex flex-col items-center gap-16 px-4 pt-32 pb-20 md:pt-20 relative"
       style={{ backgroundColor: colors.dark, minHeight: '200vh' }}
     >
-      <div className="text-center mt-20">
-        <h1 className="font-bold" style={{ 
-          fontFamily: 'StormGust, sans-serif', 
-          fontSize: '6rem',
-          lineHeight: '1.1',
-          textShadow: '0 0 10px rgba(0,0,0,0.5)'
-        }}>
-          <span style={{ display: 'block', color: colors.white }}>work in</span>
-          <span style={{ display: 'block', color: colors.yellow }}>progress</span>
-        </h1>
-      </div>
       <div className="w-full max-w-2xl lg:max-w-4xl">
         <img 
           src={logo} 
@@ -27,54 +17,45 @@ function Home() {
         />
       </div>
 
-      {/* Contenuto placeholder Lorem Ipsum */}
+      <div className="text-center">
+        <h2 className="text-5xl font-bold text-white flex flex-col md:flex-row items-center justify-center gap-3">
+          <span>Pronti a</span>
+          <RotatingText
+            texts={["ululare", "combattere", "dare tutto", "spingere", "crescere"]}
+            rotationInterval={2500}
+            className="text-5xl font-bold px-6 py-1 pb-3 rounded-2xl"
+            style={{ backgroundColor: colors.yellow, color: colors.dark }}
+            staggerDuration={0.03}
+          />
+        </h2>
+      </div>
+      {/* Contenuto */}
       <div className="w-full max-w-4xl mt-16 space-y-8 text-white">
         <section className="space-y-4">
           <h2 className="text-3xl font-bold" style={{ color: colors.yellow }}>Chi Siamo</h2>
           <p className="text-lg leading-relaxed">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-          </p>
-          <p className="text-lg leading-relaxed">
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. 
-            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.
+            L'Istituto di istruzione Ludovico Geymonat è tra le 23 scuole superiori iscritte alla quarta edizione della Varese School Cup, progetto sportivo ed educativo che coinvolge le scuole superiori del territorio attraverso il basket e numerose attività complementari. La manifestazione non è soltanto un torneo, ma un'occasione di crescita personale e collettiva: gli studenti potranno contribuire secondo le proprie passioni e competenze, curando la comunicazione, la grafica, la musica, la danza e il tifo positivo.
           </p>
         </section>
 
         <section className="space-y-4">
           <h2 className="text-3xl font-bold" style={{ color: colors.yellow }}>La Nostra Storia</h2>
           <p className="text-lg leading-relaxed">
-            Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui 
-            ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit.
-          </p>
-          <p className="text-lg leading-relaxed">
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti 
-            quos dolores et quas molestias excepturi sint occaecati cupiditate non provident.
+            Geymonat Wolves nasce dalla determinazione degli studenti, da sempre vogliosi di mettersi in gioco in un progetto volto alla loro crescita. La quarta edizione della manifestazione è stata l'occasione giusta per mettere in pratica il desiderio dei ragazzi. La nostra è una realtà giovane, ancora tutta da scrivere, ma l'obiettivo comune è di non smettere mai di riempire le pagine.
           </p>
         </section>
 
         <section className="space-y-4">
           <h2 className="text-3xl font-bold" style={{ color: colors.yellow }}>I Nostri Obiettivi</h2>
           <p className="text-lg leading-relaxed">
-            Similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis 
-            est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.
-          </p>
-          <p className="text-lg leading-relaxed">
-            Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint 
-            et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus.
+            L'iniziativa promuove valori come collaborazione, inclusione, rispetto delle regole e benessere, offrendo ai ragazzi un'esperienza formativa a 360°. Punti cardine del progetto la valorizzazione della nostra scuola, da cui deve emergere il senso di appartenenza, e l'uso corretto dei social. Le esperienze stimoleranno ogni team alla ricerca di soluzione intelligenti per ogni tipo di problema.
           </p>
         </section>
 
         <section className="space-y-4 pb-32">
           <h2 className="text-3xl font-bold" style={{ color: colors.yellow }}>Il Nostro Impegno</h2>
           <p className="text-lg leading-relaxed">
-            Ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Sed ut perspiciatis 
-            unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.
-          </p>
-          <p className="text-lg leading-relaxed">
-            Veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut 
-            odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+            La Varese School Cup è l'occasione per porre gli studenti al centro della scena, essendone i veri protagonisti. Il torneo non lo fanno soltanto gli atleti ma ogni team dovrà avere un peso determinante nel progetto, che non mira solamente alla valorizzazione sportiva ma anche all'educazione alla cittadinanza.
           </p>
         </section>
       </div>
