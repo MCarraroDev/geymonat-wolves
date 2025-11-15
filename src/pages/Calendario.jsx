@@ -1,13 +1,9 @@
 import { useEffect } from 'react'
 import MatchCard from '@/components/MatchCard'
 import colors from '@/config/colors'
-import geymonatLogo from '@/assets/logo/verticale.webp'
-import donMilaniLogo from '@/assets/logo/teams/donmilani/Logo varese school cup DON MILANI colori.webp'
+import matches from '@/config/matches'
 
 function Calendario() {
-  // Data della partita: 17 novembre 2025 alle 8:00
-  const matchDate = new Date(2025, 10, 17, 8, 0, 0) // Mese 10 = novembre (0-indexed)
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
@@ -33,22 +29,29 @@ function Calendario() {
           </p>
         </div>
 
-        {/* Match Card */}
-        <MatchCard
-          homeTeam="Geymonat Wolves"
-          awayTeam="Don Milani Shooters"
-          homeLogo={geymonatLogo}
-          awayLogo={donMilaniLogo}
-          matchDate={matchDate}
-          homeScore={0}
-          awayScore={0}
-          awayColor="#2D5724"
-        />
-
-        {/* Placeholder per future partite */}
-        <div className="mt-12 text-center text-white/60">
-          <p>Altre partite verranno aggiunte presto...</p>
+        {/* Match Cards */}
+        <div className="space-y-8">
+          {matches.map((match) => (
+            <MatchCard
+              key={match.id}
+              homeTeam={match.homeTeam.name}
+              awayTeam={match.awayTeam.name}
+              homeLogo={match.homeTeam.logo}
+              awayLogo={match.awayTeam.logo}
+              matchDate={match.date}
+              homeScore={match.homeScore}
+              awayScore={match.awayScore}
+              awayColor={match.awayTeam.color}
+            />
+          ))}
         </div>
+
+        {/* Message if no matches */}
+        {matches.length === 0 && (
+          <div className="mt-12 text-center text-white/60">
+            <p>Nessuna partita in programma al momento...</p>
+          </div>
+        )}
       </div>
     </div>
   )

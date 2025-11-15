@@ -49,7 +49,7 @@ function MatchCard({
     >
       {/* Titolo */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-white mb-2">Prima Partita</h2>
+        <h2 className="text-3xl font-bold mb-2" style={{ color: colors.yellow }}>Prima Partita</h2>
         <p className="text-white/80 text-lg">
           {matchDate.toLocaleDateString('it-IT', { 
             weekday: 'long', 
@@ -78,7 +78,7 @@ function MatchCard({
         {/* VS or Score */}
         <div className="flex items-center justify-center">
           {!isMatchStarted ? (
-            <div className="text-4xl font-bold text-white/80">VS</div>
+            <div className="text-4xl font-bold" style={{ color: colors.yellow }}>VS</div>
           ) : (
             <div className="text-4xl font-bold text-white/80">-</div>
           )}
@@ -101,7 +101,7 @@ function MatchCard({
       {/* Countdown */}
       {!isMatchStarted && timeLeft && (
         <div className="bg-white/20 rounded-xl p-6">
-          <h3 className="text-xl font-semibold text-center mb-4" style={{ color: colors.yellow }}>
+          <h3 className="text-xl font-semibold text-center mb-4 text-white">
             Mancano:
           </h3>
           <div className="grid grid-cols-4 gap-4">

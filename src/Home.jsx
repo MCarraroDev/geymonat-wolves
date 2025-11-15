@@ -2,12 +2,15 @@ import { useState, useEffect } from 'react'
 import logo from '@/assets/logo/orizzontale.webp'
 import colors from '@/config/colors'
 import RotatingText from '@/components/RotatingText'
+import NextMatchPreview from '@/components/NextMatchPreview'
 import { ChevronDown } from 'lucide-react'
+import { getNextMatch } from '@/config/matches'
 
 function Home() {
   const [showHero, setShowHero] = useState(true)
   const [isAutoScrolling, setIsAutoScrolling] = useState(false)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const nextMatch = getNextMatch()
 
   // Scroll to top on mount
   useEffect(() => {
@@ -83,13 +86,13 @@ function Home() {
     >
       {/* Hero Section - Logo e Testo Rotante */}
       <div 
-        className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center gap-12 px-4 pointer-events-none transition-opacity duration-700"
+        className="fixed top-0 left-0 w-full h-screen flex flex-col items-center justify-center gap-6 md:gap-8 px-4 pointer-events-none transition-opacity duration-700"
         style={{ 
           opacity: showHero ? 1 : 0,
           zIndex: 10
         }}
       >
-        <div className="w-full max-w-2xl lg:max-w-4xl">
+        <div className="w-full max-w-xl lg:max-w-3xl">
           <img 
             src={logo} 
             alt="Logo" 
@@ -99,21 +102,28 @@ function Home() {
         </div>
 
         <div className="text-center">
-          <h2 className="text-5xl font-bold text-white flex flex-col md:flex-row items-center justify-center gap-3">
+          <h2 className="text-4xl md:text-5xl font-bold text-white flex flex-col md:flex-row items-center justify-center gap-3">
             <span>Pronti a</span>
             <RotatingText
               texts={["ululare", "combattere", "dare tutto", "spingere", "crescere"]}
               rotationInterval={2500}
-              className="text-5xl font-bold px-6 py-1 pb-3 rounded-2xl"
+              className="text-4xl md:text-5xl font-bold px-6 py-1 pb-3 rounded-2xl"
               style={{ backgroundColor: colors.yellow, color: colors.dark }}
               staggerDuration={0.03}
             />
           </h2>
         </div>
 
+        {/* Next Match Preview */}
+        {nextMatch && (
+          <div className="w-full flex justify-center">
+            <NextMatchPreview match={nextMatch} />
+          </div>
+        )}
+
         {/* Freccia Scroll */}
         <div 
-          className="absolute bottom-12 animate-bounce pointer-events-auto cursor-pointer"
+          className="absolute bottom-8 md:bottom-12 animate-bounce pointer-events-auto cursor-pointer"
           onClick={scrollToContent}
         >
           <ChevronDown size={48} style={{ color: colors.yellow }} strokeWidth={2.5} />

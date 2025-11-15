@@ -13,7 +13,7 @@ const NAV_LINKS = [
 
 const SOCIAL_LINKS = [
   { label: 'Instagram', link: 'https://www.instagram.com/geymonat_wolves/' },
-  { label: 'YouTube', link: 'https://www.youtube.com/@isgeymonat-tradate-va155' },
+  { label: 'YouTube', link: 'https://www.youtube.com/@geymonatofficialchannel9120' },
 ]
 
 function Navbar() {
