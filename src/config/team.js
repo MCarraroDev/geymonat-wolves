@@ -1,4 +1,5 @@
 import colors from '@/config/colors'
+import placeholderAvatar from '@/assets/players/placeholder/placeholder.webp'
 
 /**
  * Configurazione membri del team Geymonat Wolves
@@ -6,7 +7,7 @@ import colors from '@/config/colors'
  */
 
 // Placeholder avatar - può essere sostituito con foto reali
-const DEFAULT_AVATAR = 'https://api.dicebear.com/7.x/avataaars/svg?seed='
+const DEFAULT_AVATAR = placeholderAvatar
 
 export const GROUPS = {
   TIFOPOSITIVO: 'tifo positivo',
@@ -38,7 +39,7 @@ export const teamMembers = [
   { id: 19, firstName: 'Fedele', lastName: 'Battipede', class: '4SA', group: GROUPS.TIFOPOSITIVO },
   { id: 20, firstName: 'Mohamed Aiman', lastName: 'Bhokout', class: '4C', group: GROUPS.TIFOPOSITIVO },
   { id: 21, firstName: 'Alessandro', lastName: 'Bozza', class: '4B', group: GROUPS.TIFOPOSITIVO },
-  { id: 22, firstName: 'Mathias Eugenio', lastName: 'Cavalcante', class: '4B', group: GROUPS.TIFOPOSITIVO },
+  { id: 22, firstName: 'Mathias', lastName: 'Cavalcante', class: '4B', group: GROUPS.TIFOPOSITIVO },
   { id: 23, firstName: 'Davide', lastName: 'Cermisoni', class: '4B', group: GROUPS.TIFOPOSITIVO },
   { id: 24, firstName: 'Matteo', lastName: 'Antonini', class: '3SC', group: GROUPS.TIFOPOSITIVO },
   { id: 25, firstName: 'Martina', lastName: 'Fulgione', class: '3SC', group: GROUPS.TIFOPOSITIVO },
@@ -119,8 +120,7 @@ export const teamMembers = [
 
 // Genera avatar URL per ogni membro
 teamMembers.forEach(member => {
-  const seed = `${member.firstName}${member.lastName}`.toLowerCase().replace(/\s/g, '')
-  member.avatarUrl = `${DEFAULT_AVATAR}${seed}`
+  member.avatarUrl = DEFAULT_AVATAR
   member.handle = `${member.firstName.toLowerCase()}.${member.lastName.toLowerCase().replace(/\s/g, '')}`
   member.fullName = `${member.firstName} ${member.lastName}`
 })

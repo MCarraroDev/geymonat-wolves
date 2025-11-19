@@ -85,9 +85,9 @@ function Team() {
         </div>
 
         {/* Grid di ProfileCard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 place-items-center">
           {displayMembers.map((member) => (
-            <div key={member.id} className="flex justify-center">
+            <div key={member.id} className="w-full max-w-[280px] md:max-w-[320px] flex justify-center">
               <ProfileCard
                 name={member.fullName}
                 title={`Classe ${member.class}${member.role ? ` - ${member.role}` : ''}`}
@@ -99,7 +99,8 @@ function Team() {
                 showUserInfo={false}
                 innerGradient={`linear-gradient(145deg, ${GROUP_COLORS[member.group]}44 0%, ${colors.lightBlue}33 100%)`}
                 behindGlowColor={GROUP_COLORS[member.group]}
-                className="w-full max-w-sm"
+                className="w-full"
+                enableMobileTilt={true}
               />
             </div>
           ))}
