@@ -1,12 +1,25 @@
-import { useEffect } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import MatchCard from '@/components/MatchCard'
 import colors from '@/config/colors'
 import matches from '@/config/matches'
 
 function Calendario() {
+  const [sortOrder, setSortOrder] = useState('recent') // 'recent' o 'oldest'
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
+
+  const sortedMatches = useMemo(() => {
+    const sorted = [...matches].sort((a, b) => {
+      if (sortOrder === 'recent') {
+        return b.date - a.date // Più recente prima
+      } else {
+        return a.date - b.date // Meno recente prima
+      }
+    })
+    return sorted
+  }, [sortOrder])
 
   return (
     <div 
@@ -24,16 +37,46 @@ function Calendario() {
           >
             Calendario Partite
           </h1>
-          <p className="text-white/80 text-lg">
+          <p className="text-white/80 text-lg mb-6">
             Segui tutte le nostre partite della stagione 2025/26
           </p>
+          
+          {/* Filtro */}
+          <div className="flex items-center justify-center gap-3">
+            <span className="text-white/70 text-lg">Filtra per:</span>
+            <div className="flex gap-2">
+              <button
+                onClick={() => setSortOrder('recent')}
+                className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${
+                  sortOrder === 'recent'
+                    ? 'text-black'
+                    : 'bg-white/10 text-white/70 hover:bg-white/20'
+                }`}
+                style={sortOrder === 'recent' ? { backgroundColor: colors.yellow } : {}}
+              >
+                Più recente
+              </button>
+              <button
+                onClick={() => setSortOrder('oldest')}
+                className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${
+                  sortOrder === 'oldest'
+                    ? 'text-black'
+                    : 'bg-white/10 text-white/70 hover:bg-white/20'
+                }`}
+                style={sortOrder === 'oldest' ? { backgroundColor: colors.yellow } : {}}
+              >
+                Meno recente
+              </button>
+            </div>
+          </div>
         </div>
 
         {/* Match Cards */}
-        <div className="space-y-8">
-          {matches.map((match) => (
+        <div className="space-y-8 mt-12">
+          {sortedMatches.map((match) => (
             <MatchCard
               key={match.id}
+              title={match.title}
               homeTeam={match.homeTeam.name}
               awayTeam={match.awayTeam.name}
               homeLogo={match.homeTeam.logo}

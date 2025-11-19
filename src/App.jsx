@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route } from 'react-router-dom'
 import Home from './Home'
 import Calendario from './pages/Calendario'
+import Team from './pages/Team'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/calendario" element={<Calendario />} />
+            <Route path="/team" element={<Team />} />
           </Routes>
         </main>
         <Footer />

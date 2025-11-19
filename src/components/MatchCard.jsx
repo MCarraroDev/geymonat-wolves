@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import colors from '@/config/colors'
 
 function MatchCard({ 
+  title = 'Partita',
   homeTeam, 
   awayTeam, 
   homeLogo, 
@@ -49,7 +50,7 @@ function MatchCard({
     >
       {/* Titolo */}
       <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2" style={{ color: colors.yellow }}>Prima Partita</h2>
+        <h2 className="text-3xl font-bold mb-2" style={{ color: colors.yellow }}>{title}</h2>
         <p className="text-white/80 text-lg">
           {matchDate.toLocaleDateString('it-IT', { 
             weekday: 'long', 
@@ -64,11 +65,13 @@ function MatchCard({
       <div className="flex items-center justify-between gap-8 mb-8">
         {/* Home Team */}
         <div className="flex-1 flex flex-col items-center gap-4">
-          <img 
-            src={homeLogo} 
-            alt={homeTeam}
-            className="w-40 h-auto object-contain drop-shadow-lg"
-          />
+          <div className="h-40 flex items-center justify-center">
+            <img 
+              src={homeLogo} 
+              alt={homeTeam}
+              className="max-h-40 w-auto object-contain drop-shadow-lg"
+            />
+          </div>
           <h3 className="text-2xl font-bold text-white text-center">{homeTeam}</h3>
           {isMatchStarted && (
             <div className="text-5xl font-bold" style={{ color: colors.yellow }}>{homeScore}</div>
@@ -86,11 +89,13 @@ function MatchCard({
 
         {/* Away Team */}
         <div className="flex-1 flex flex-col items-center gap-4">
-          <img 
-            src={awayLogo} 
-            alt={awayTeam}
-            className="w-40 h-auto object-contain drop-shadow-lg"
-          />
+          <div className="h-40 flex items-center justify-center">
+            <img 
+              src={awayLogo} 
+              alt={awayTeam}
+              className="max-h-40 w-auto object-contain drop-shadow-lg"
+            />
+          </div>
           <h3 className="text-2xl font-bold text-white text-center">{awayTeam}</h3>
           {isMatchStarted && (
             <div className="text-5xl font-bold" style={{ color: colors.yellow }}>{awayScore}</div>
@@ -122,13 +127,6 @@ function MatchCard({
               <div className="text-sm text-white/80 mt-1">Secondi</div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* Match Started */}
-      {isMatchStarted && (
-        <div className="bg-white/20 rounded-xl p-6 text-center">
-          <h3 className="text-2xl font-bold" style={{ color: colors.yellow }}>Partita in Corso!</h3>
         </div>
       )}
     </div>
