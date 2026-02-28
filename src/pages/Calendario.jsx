@@ -1,5 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import MatchCard from '@/components/MatchCard'
+import FilterButton from '@/components/FilterButton'
 import colors from '@/config/colors'
 import matches from '@/config/matches'
 
@@ -43,30 +44,22 @@ function Calendario() {
           
           {/* Filtro */}
           <div className="flex items-center justify-center gap-3">
-            <span className="text-white/70 text-lg">Filtra per:</span>
+            <span className="text-white text-lg font-medium">Ordina per:</span>
             <div className="flex gap-2">
-              <button
+              <FilterButton
+                isActive={sortOrder === 'recent'}
                 onClick={() => setSortOrder('recent')}
-                className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${
-                  sortOrder === 'recent'
-                    ? 'text-black'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
-                }`}
-                style={sortOrder === 'recent' ? { backgroundColor: colors.yellow } : {}}
+                color={colors.yellow}
               >
                 Più recente
-              </button>
-              <button
+              </FilterButton>
+              <FilterButton
+                isActive={sortOrder === 'oldest'}
                 onClick={() => setSortOrder('oldest')}
-                className={`px-6 py-3 rounded-lg font-semibold text-lg transition-all ${
-                  sortOrder === 'oldest'
-                    ? 'text-black'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
-                }`}
-                style={sortOrder === 'oldest' ? { backgroundColor: colors.yellow } : {}}
+                color={colors.yellow}
               >
                 Meno recente
-              </button>
+              </FilterButton>
             </div>
           </div>
         </div>

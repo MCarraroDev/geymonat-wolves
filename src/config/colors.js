@@ -13,4 +13,3 @@ export const colors = {
 
 // Esporta anche come oggetto per uso con Tailwind
 export default colors
-

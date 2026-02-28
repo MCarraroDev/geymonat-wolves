@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import ProfileCard from '@/components/ProfileCard/ProfileCard'
+import TeamCard from '@/components/TeamCard/TeamCard'
+import FilterButton from '@/components/FilterButton'
 import colors from '@/config/colors'
 import { getAllGroups, GROUP_NAMES, GROUP_COLORS, GROUPS } from '@/config/team'
 
@@ -19,14 +20,12 @@ function Team() {
       members = groups[selectedGroup] || []
     }
     
-    // Ordina alfabeticamente per cognome quando si visualizza "tutti"
-    if (selectedGroup === 'all') {
-      members = [...members].sort((a, b) => {
-        const lastNameCompare = a.lastName.localeCompare(b.lastName, 'it')
-        if (lastNameCompare !== 0) return lastNameCompare
-        return a.firstName.localeCompare(b.firstName, 'it')
-      })
-    }
+    // Ordina sempre alfabeticamente per cognome, poi per nome
+    members = [...members].sort((a, b) => {
+      const lastNameCompare = a.lastName.localeCompare(b.lastName, 'it')
+      if (lastNameCompare !== 0) return lastNameCompare
+      return a.firstName.localeCompare(b.firstName, 'it')
+    })
     
     return members
   }
@@ -53,56 +52,43 @@ function Team() {
           
           {/* Filtri per gruppo */}
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-white/70 text-lg">Filtra per:</span>
+            <span className="text-white text-lg font-medium">Filtra per:</span>
             <div className="flex flex-wrap gap-2 justify-center">
-              <button
+              <FilterButton
+                isActive={selectedGroup === 'all'}
                 onClick={() => setSelectedGroup('all')}
-                className={`px-6 py-3 rounded-lg font-semibold text-base transition-all ${
-                  selectedGroup === 'all'
-                    ? 'text-black'
-                    : 'bg-white/10 text-white/70 hover:bg-white/20'
-                }`}
-                style={selectedGroup === 'all' ? { backgroundColor: colors.yellow } : {}}
+                color={colors.yellow}
               >
                 Tutti ({Object.values(groups).flat().length})
-              </button>
+              </FilterButton>
               {Object.entries(GROUP_NAMES).map(([key, name]) => (
-                <button
+                <FilterButton
                   key={key}
+                  isActive={selectedGroup === key}
                   onClick={() => setSelectedGroup(key)}
-                  className={`px-6 py-3 rounded-lg font-semibold text-base transition-all ${
-                    selectedGroup === key
-                      ? 'text-white'
-                      : 'bg-white/10 text-white/70 hover:bg-white/20'
-                  }`}
-                  style={selectedGroup === key ? { backgroundColor: GROUP_COLORS[key] } : {}}
+                  color={GROUP_COLORS[key]}
                 >
                   {name} ({groups[key].length})
-                </button>
+                </FilterButton>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Grid di ProfileCard */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-8 place-items-center">
-          {displayMembers.map((member) => (
-            <div key={member.id} className="w-full max-w-[280px] md:max-w-[320px] flex justify-center">
-              <ProfileCard
-                name={member.fullName}
-                title={`Classe ${member.class}${member.role ? ` - ${member.role}` : ''}`}
-                handle={member.handle}
-                status={GROUP_NAMES[member.group]}
-                avatarUrl={member.avatarUrl}
-                miniAvatarUrl={member.avatarUrl}
-                iconUrl="/vite.svg"
-                showUserInfo={false}
-                innerGradient={`linear-gradient(145deg, ${GROUP_COLORS[member.group]}44 0%, ${colors.lightBlue}33 100%)`}
-                behindGlowColor={GROUP_COLORS[member.group]}
-                className="w-full"
-                enableMobileTilt={true}
-              />
-            </div>
+        {/* Grid di TeamCard */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 place-items-center">
+          {displayMembers.map((member, index) => (
+            <TeamCard
+              key={member.id}
+              name={member.fullName}
+              title={`Classe ${member.class}${member.role ? ` - ${member.role}` : ''}`}
+              status={GROUP_NAMES[member.group]}
+              avatarUrl={member.avatarUrl}
+              groupColor={GROUP_COLORS[member.group]}
+              slug={member.slug}
+              className="w-full"
+              style={{ animationDelay: `${index * 0.05}s` }}
+            />
           ))}
         </div>
 

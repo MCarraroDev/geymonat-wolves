@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import StaggeredMenu from './StaggeredMenu'
 import colors from '@/config/colors'
@@ -8,7 +8,6 @@ const NAV_LINKS = [
   { label: 'Calendario Partite', labelMobile: 'Calendario\nPartite', path: '/calendario' },
   { label: 'Il Nostro Team', path: '/team' },
   { label: 'Media', path: '/media' },
-  { label: 'Contatti', path: '/contatti' },
 ]
 
 const SOCIAL_LINKS = [
@@ -19,6 +18,27 @@ const SOCIAL_LINKS = [
 function Navbar() {
   const location = useLocation()
   const currentPath = location.hash ? location.hash.replace('#', '') : (location.pathname || '/')
+
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+
+      // Nascondi la navbar se scorriamo verso il basso, mostrala verso l'alto
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
 
   const menuItems = useMemo(
     () =>
@@ -34,7 +54,7 @@ function Navbar() {
 
   return (
     <div
-      className="pointer-events-none"
+      className={`pointer-events-none ${isVisible ? '' : 'hide-header'}`}
       data-active-path={currentPath || '/'}
     >
       <StaggeredMenu
@@ -58,6 +78,10 @@ function Navbar() {
           background: transparent;
           padding: 2rem;
           pointer-events: auto;
+          transition: transform 0.4s cubic-bezier(0.3, 0, 0.2, 1);
+        }
+        .hide-header .navbar-menu:not([data-open]) .staggered-menu-header {
+          transform: translateY(-150%);
         }
         .navbar-menu .sm-toggle {
           color: ${colors.dark};
@@ -87,8 +111,7 @@ function Navbar() {
         [data-active-path="/"] .navbar-menu a[href="#/"] .sm-panel-itemLabel,
         [data-active-path="/calendario"] .navbar-menu a[href="#/calendario"] .sm-panel-itemLabel,
         [data-active-path="/team"] .navbar-menu a[href="#/team"] .sm-panel-itemLabel,
-        [data-active-path="/media"] .navbar-menu a[href="#/media"] .sm-panel-itemLabel,
-        [data-active-path="/contatti"] .navbar-menu a[href="#/contatti"] .sm-panel-itemLabel {
+        [data-active-path="/media"] .navbar-menu a[href="#/media"] .sm-panel-itemLabel {
           color: ${colors.primary};
         }
       `}</style>

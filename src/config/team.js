@@ -4,10 +4,39 @@ import placeholderAvatar from '@/assets/players/placeholder/placeholder.webp'
 /**
  * Configurazione membri del team Geymonat Wolves
  * Organizzati per gruppo: TIFOPOSITIVO, Comunicazione, Basket, Dance Crew
+ * 
+ * Sistema automatico foto:
+ * - Le foto vengono caricate automaticamente da src/assets/players/
+ * - Nome file: [ID].webp (es: id 42 → 042.webp, id 5 → 005.webp)
+ * - Se la foto non esiste, viene usato il placeholder
+ * 
+ * Campi opzionali per profili dettagliati:
+ * - birthday: Data di nascita (formato: "DD/MM/YYYY")
+ * - bio: Biografia personale
+ * - externalTeam: { name, logo } - Squadra esterna
+ * - favoriteSong: URL Spotify della canzone (es: 'https://open.spotify.com/track/...')
+ * - playlist: URL Spotify della playlist (es: 'https://open.spotify.com/playlist/...')
+ * - instagram: Username Instagram (senza @)
  */
 
-// Placeholder avatar - può essere sostituito con foto reali
+// Placeholder avatar
 const DEFAULT_AVATAR = placeholderAvatar
+
+// Import tutte le foto disponibili usando Vite glob import
+const playerPhotos = import.meta.glob('../assets/players/*.webp', { eager: true, import: 'default' })
+
+// Funzione per ottenere il path della foto in base all'ID
+const getPlayerPhoto = (id) => {
+  // Formatta ID con zero padding (es: 5 → "005", 42 → "042")
+  const paddedId = String(id).padStart(3, '0')
+  const photoPath = `../assets/players/${paddedId}.webp`
+
+  // Cerca la foto nell'oggetto importato
+  const photo = playerPhotos[photoPath]
+
+  // Ritorna la foto se esiste, altrimenti il placeholder
+  return photo || DEFAULT_AVATAR
+}
 
 export const GROUPS = {
   TIFOPOSITIVO: 'tifo positivo',
@@ -70,7 +99,23 @@ export const teamMembers = [
   { id: 48, firstName: 'Matteo', lastName: 'Viscardi', class: '4B', group: GROUPS.COMUNICAZIONE },
   { id: 49, firstName: 'Fabio', lastName: 'Ciceri', class: '3SB', group: GROUPS.COMUNICAZIONE },
   { id: 50, firstName: 'Elisa', lastName: 'Morganti', class: '3E', group: GROUPS.COMUNICAZIONE },
-  { id: 51, firstName: 'Marco', lastName: 'Carraro', class: '3D', group: GROUPS.COMUNICAZIONE },
+  {
+    id: 51,
+    firstName: 'Marco',
+    lastName: 'Carraro',
+    class: '3D',
+    group: GROUPS.COMUNICAZIONE,
+    // role: 'Quel che capita',
+    // birthday: '29/01/2009',
+    // bio: 'Boh scrivo dopo',
+    // // externalTeam: {  // OPZIONALE - Rimuovi questa sezione se il membro non gioca in squadre esterne
+    // //   name: 'Esempio Team',
+    // //   logo: '/vite.svg'
+    // // },
+    // favoriteSong: 'https://open.spotify.com/track/0526DaOuV7mRlPKxhMSJKw',
+    // playlist: 'https://open.spotify.com/playlist/1Sp9PEb31t7GKJgDpuvJ4e?si=0505a29a5f9449c6',
+    // instagram: 'marcocarraroo_'
+  },
   { id: 52, firstName: 'Alice', lastName: 'Biganzoli', class: '2SB', group: GROUPS.COMUNICAZIONE },
   { id: 53, firstName: 'Giulia', lastName: 'Corrazzin', class: '2SB', group: GROUPS.COMUNICAZIONE },
   { id: 54, firstName: 'Ilaria', lastName: 'Guerini Rocco', class: '1SA', group: GROUPS.COMUNICAZIONE },
@@ -95,7 +140,7 @@ export const teamMembers = [
   { id: 71, firstName: 'Alessandro Carlo', lastName: 'Valli', class: '3E', group: GROUPS.BASKET },
   { id: 72, firstName: 'Stefano Luca', lastName: 'Macchi', class: '3D', group: GROUPS.BASKET },
   { id: 73, firstName: 'Marcello', lastName: 'Toscani', class: '3AE', group: GROUPS.BASKET },
-  { id: 74, firstName: 'Tommaso', lastName: 'Giuduci', class: '2SC', group: GROUPS.BASKET },
+  { id: 74, firstName: 'Tommaso', lastName: 'Giudici', class: '2SC', group: GROUPS.BASKET },
   { id: 75, firstName: 'Sara', lastName: 'Vitangeli', class: '5B', group: GROUPS.BASKET, role: 'Viceallenatrice' },
 
   // DANCE CREW
@@ -118,11 +163,14 @@ export const teamMembers = [
   { id: 92, firstName: 'Rebecca', lastName: 'Salin', class: '2SB', group: GROUPS.DANCE },
 ]
 
-// Genera avatar URL per ogni membro
+// Genera dati aggiuntivi per ogni membro
 teamMembers.forEach(member => {
-  member.avatarUrl = DEFAULT_AVATAR
+  // Carica automaticamente la foto in base all'ID
+  member.avatarUrl = getPlayerPhoto(member.id)
   member.handle = `${member.firstName.toLowerCase()}.${member.lastName.toLowerCase().replace(/\s/g, '')}`
   member.fullName = `${member.firstName} ${member.lastName}`
+  // Genera slug per URL (es: "marco-carraro")
+  member.slug = `${member.firstName.toLowerCase()}-${member.lastName.toLowerCase().replace(/\s/g, '-')}`
 })
 
 /**
@@ -142,6 +190,20 @@ export const getAllGroups = () => {
     [GROUPS.BASKET]: getMembersByGroup(GROUPS.BASKET),
     [GROUPS.DANCE]: getMembersByGroup(GROUPS.DANCE),
   }
+}
+
+/**
+ * Ottiene un membro per ID
+ */
+export const getMemberById = (id) => {
+  return teamMembers.find(member => member.id === parseInt(id))
+}
+
+/**
+ * Ottiene un membro per slug
+ */
+export const getMemberBySlug = (slug) => {
+  return teamMembers.find(member => member.slug === slug)
 }
 
 /**
